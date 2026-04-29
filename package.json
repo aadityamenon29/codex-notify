@@ -1,6 +1,6 @@
 {
   "name": "codex-notify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A small Codex CLI completion notification installer.",
   "license": "MIT",
   "homepage": "https://github.com/aadityamenon29/codex-notify#readme",

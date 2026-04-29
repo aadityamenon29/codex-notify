@@ -19,7 +19,7 @@ Usage:
   codex-notify test
 
 Options:
-  --threshold, -t  Minimum turn duration before notifying. Default: 5.
+  --threshold, -t  Minimum turn duration before notifying. Default: 1.
   --force          Replace an existing custom Codex notify command.
   --purge          During uninstall, also remove codex-notify files.
 `);
@@ -40,7 +40,7 @@ function paths() {
 
 function parseArgs(args) {
   const opts = {
-    threshold: 5,
+    threshold: 1,
     force: false,
     purge: false,
   };
@@ -177,12 +177,16 @@ function install(rawArgs) {
   console.log("Installed codex-notify.");
   console.log(`Hook: ${p.hookPath}`);
   console.log(`Config: ${p.configPath}`);
-  console.log(`Threshold: ${opts.threshold} seconds`);
+  console.log(`Threshold: ${formatSeconds(opts.threshold)}`);
   if (backupPath) console.log(`Backup: ${backupPath}`);
   console.log("");
   console.log("Restart existing Codex sessions before expecting notifications.");
   console.log(`Test hook: npx --yes ${REPO_SPEC} test`);
   console.log('Test Codex: codex exec "Say exactly: notification test done"');
+}
+
+function formatSeconds(seconds) {
+  return seconds === 1 ? "1 second" : `${seconds} seconds`;
 }
 
 function uninstall(rawArgs) {

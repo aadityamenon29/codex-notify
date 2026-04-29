@@ -2,7 +2,7 @@
 
 Small completion notifications for the Codex CLI.
 
-It installs a Codex `notify` hook that plays a sound and shows a desktop notification when a Codex turn finishes. By default, it only notifies for turns that ran at least 5 seconds, so tiny replies do not ping.
+It installs a Codex `notify` hook that plays a sound and shows a desktop notification when a Codex turn finishes. By default, it only notifies for turns that ran at least 1 second, so instant replies do not ping.
 
 ## Install
 
@@ -78,7 +78,7 @@ Your existing `config.toml` is backed up before changes.
 - If sound works but popups do not, macOS notification permissions are the likely issue.
 - If popups work but sound does not, check system volume and Focus mode.
 - Codex currently supports one `notify` command. This installer will not overwrite an existing custom notify command unless you pass `--force`.
-- The 5-second threshold is calculated from the Codex turn ID timestamp. If Codex changes that payload shape, the hook falls back to notifying rather than dropping completions.
+- The 1-second threshold is calculated from the Codex turn ID timestamp. If Codex changes that payload shape, the hook falls back to notifying rather than dropping completions.
 - macOS is the primary target. Linux has best-effort support through `notify-send`, `paplay`, or `aplay`.
 
 ## Security

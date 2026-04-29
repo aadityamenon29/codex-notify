@@ -4,7 +4,7 @@ set -euo pipefail
 payload="${1:-}"
 settings_file="${CODEX_NOTIFY_SETTINGS:-$HOME/.codex/codex-notify.env}"
 
-min_seconds="${CODEX_NOTIFY_MIN_SECONDS:-5}"
+min_seconds="${CODEX_NOTIFY_MIN_SECONDS:-1}"
 popup="${CODEX_NOTIFY_POPUP:-1}"
 sound="${CODEX_NOTIFY_SOUND:-1}"
 sound_name="${CODEX_NOTIFY_SOUND_NAME:-Ping}"
@@ -31,7 +31,7 @@ if [ -f "$settings_file" ]; then
 fi
 
 case "$min_seconds" in
-  ""|*[!0-9]*) min_seconds=5 ;;
+  ""|*[!0-9]*) min_seconds=1 ;;
 esac
 
 case "$payload" in
