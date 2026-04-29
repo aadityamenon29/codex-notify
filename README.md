@@ -6,6 +6,8 @@ It installs a Codex `notify` hook that plays a sound and shows a desktop notific
 
 ## Install
 
+Requires Node/npm so `npx` can download and run the installer.
+
 ```sh
 npx --yes github:aadityamenon29/codex-notify install
 ```

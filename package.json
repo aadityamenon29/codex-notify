@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "A small Codex CLI completion notification installer.",
   "license": "MIT",
+  "homepage": "https://github.com/aadityamenon29/codex-notify#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aadityamenon29/codex-notify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aadityamenon29/codex-notify/issues"
+  },
   "bin": {
     "codex-notify": "bin/codex-notify.js"
   },
