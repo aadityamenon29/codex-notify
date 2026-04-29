@@ -7,6 +7,7 @@ const path = require("path");
 const childProcess = require("child_process");
 
 const REPO_SPEC = "github:aadityamenon29/codex-notify";
+const NOTIFY_LINE_RE = /^notify\s*=\s*\[[^\n]*\]\s*(?:#.*)?$/m;
 
 function usage() {
   console.log(`codex-notify
@@ -40,7 +41,6 @@ function paths() {
 function parseArgs(args) {
   const opts = {
     threshold: 5,
-    thresholdProvided: false,
     force: false,
     purge: false,
   };
@@ -50,11 +50,9 @@ function parseArgs(args) {
     if (arg === "--threshold" || arg === "-t") {
       if (i + 1 >= args.length) fail("Missing value for --threshold.");
       opts.threshold = parseThreshold(args[i + 1]);
-      opts.thresholdProvided = true;
       i += 1;
     } else if (arg.startsWith("--threshold=")) {
       opts.threshold = parseThreshold(arg.slice("--threshold=".length));
-      opts.thresholdProvided = true;
     } else if (arg === "--force") {
       opts.force = true;
     } else if (arg === "--purge") {
@@ -121,7 +119,7 @@ function notifyLine(hookPath) {
 }
 
 function findNotifyLine(config) {
-  const match = config.match(/^notify\s*=\s*\[[^\n]*\]\s*$/m);
+  const match = config.match(NOTIFY_LINE_RE);
   return match ? match[0] : null;
 }
 
@@ -163,7 +161,7 @@ function install(rawArgs) {
 
   let nextConfig;
   if (existingNotify) {
-    nextConfig = config.replace(/^notify\s*=\s*\[[^\n]*\]\s*$/m, nextNotify);
+    nextConfig = config.replace(NOTIFY_LINE_RE, nextNotify);
   } else {
     const prefix = config && !config.endsWith("\n") ? "\n" : "";
     nextConfig = `${config}${prefix}${config ? "\n" : ""}${nextNotify}\n`;
@@ -196,7 +194,7 @@ function uninstall(rawArgs) {
   if (existingNotify && existingNotify.includes("codex-notify-done.sh")) {
     const backupPath = backupFile(p.configPath);
     const nextConfig = config
-      .replace(/^notify\s*=\s*\[[^\n]*\]\s*\n?/m, "")
+      .replace(new RegExp(`${NOTIFY_LINE_RE.source}\\n?`, "m"), "")
       .replace(/\n{3,}/g, "\n\n");
     fs.writeFileSync(p.configPath, nextConfig, "utf8");
     console.log("Removed codex-notify from Codex config.");
