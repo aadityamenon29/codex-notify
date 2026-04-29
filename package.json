@@ -1,0 +1,23 @@
+{
+  "name": "codex-notify",
+  "version": "0.1.0",
+  "description": "A small Codex CLI completion notification installer.",
+  "license": "MIT",
+  "bin": {
+    "codex-notify": "bin/codex-notify.js"
+  },
+  "files": [
+    "assets",
+    "bin",
+    "install.sh",
+    "uninstall.sh",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "check": "node --check bin/codex-notify.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
